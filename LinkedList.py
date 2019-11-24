@@ -7,22 +7,29 @@ class Node(object):
 class LinkedList(object):
     def __init__(self, head=None):
         self.head = head
+        if head:
+            self.size = 1
+        else:
+            self.size = 0
 
     def insert(self, value):
         new_node = Node(value)
 
         if self.head is None:
             self.head = new_node
+            self.size += 1
         else:
             current = self.head
             while current.next:
                 current = current.next
             current.next = new_node
+            self.size += 1
 
     def insert_at_beginning(self, value):
         new_node = Node(value)
         new_node.next = self.head
         self.head = new_node
+        self.size += 1
 
     def delete(self, value):
         current = self.head
@@ -30,15 +37,18 @@ class LinkedList(object):
 
         if current.value == value:
             self.head = current.next
+            self.size -= 1
 
         while current.next:
             if current.value == value:
                 previous.next = current.next
+                self.size -= 1
                 break
             else:
                 previous = current
 
             current = previous.next
+
 
     def print(self):
         current = self.head
