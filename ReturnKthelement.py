@@ -35,7 +35,6 @@ if __name__ == '__main__':
     linked_list.insert(5)
     linked_list.insert(7)
     linked_list.insert_at_beginning(0)
-    #linked_list.delete(7)
 
     print("Kth element from last: " + str(return_kth_element(linked_list, 3)))
     print("Kth element from last: " + str(return_kth_element_2(linked_list, 3)))

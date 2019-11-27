@@ -4,66 +4,71 @@ class Node(object):
         self.next = next
 
 
-class LinkedList(object):
+class LinkedList:
+
     def __init__(self, head=None):
         self.head = head
-        if head:
-            self.size = 1
-        else:
-            self.size = 0
 
     def insert(self, value):
         new_node = Node(value)
 
         if self.head is None:
             self.head = new_node
-            self.size += 1
         else:
             current = self.head
             while current.next:
                 current = current.next
             current.next = new_node
-            self.size += 1
 
-    def insert_at_beginning(self, value):
+    def insert_at(self, value, position):
         new_node = Node(value)
-        new_node.next = self.head
-        self.head = new_node
-        self.size += 1
 
-    def delete(self, value):
+        if position < 0:
+            print("Invalid position - " + str(position))
+            return
+
+        if position is 0:
+            new_node.next = self.head
+            self.head = new_node
+            return
+
         current = self.head
-        previous = None
+        while current:
+            current = current.next
 
-        if current.value == value:
-            self.head = current.next
-            self.size -= 1
+        current_next = current.next
+        current.next = new_node
+        new_node.next = current_next
 
-        while current.next:
-            if current.value == value:
-                previous.next = current.next
-                self.size -= 1
-                break
-            else:
-                previous = current
+    def delete_last(self):
+        current = self.head
 
-            current = previous.next
+        if current is None:
+            print("Empty list")
+            return
 
+        prev = None
+        while current.next is not None:
+            prev = current
+            current = current.next
+
+        prev.next = None
 
     def print(self):
         current = self.head
+        result = ""
         while current:
-            print(current.value)
+            result += str(current.value) + " -> "
             current = current.next
+        print(result[:-4])
 
 
 if __name__ == '__main__':
     linked_list = LinkedList(Node(1))
+
     linked_list.insert(2)
     linked_list.insert(7)
     linked_list.insert(5)
     linked_list.insert(7)
-    linked_list.insert_at_beginning(0)
-    linked_list.delete(7)
 
     linked_list.print()
